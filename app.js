@@ -5,7 +5,9 @@ import fragment from "./shader/fragment.glsl";
 import vertex from "./shader/vertex.glsl";
 // import vertexParticles from "./shader/vertexParticles.glsl";
 import * as dat from "dat.gui";
-
+import mask from "./img/mask.png";
+import forest1 from "./img/forest1.png";
+import forest2 from "./img/forest2.png";
 
 import { TimelineMax } from "gsap";
 let OrbitControls = require("three-orbit-controls")(THREE);
@@ -25,6 +27,10 @@ export default class Sketch {
     this.width = this.container.offsetWidth;
     this.height = this.container.offsetHeight;
     this.container.appendChild(this.renderer.domElement);
+
+
+    /* LOAD TEXTURES */
+    this.textures = [new THREE.TextureLoader().load(forest1),new THREE.TextureLoader().load(forest2)];
 
     // this.camera = new THREE.PerspectiveCamera(
     //   45,
@@ -137,7 +143,9 @@ export default class Sketch {
       fragmentShader:fragment,
       vertexShader:vertex,
       uniforms:{
-        progress:{type:"f",value:0}
+        progress:{type:"f",value:0},
+        t1:{type: "t",value:this.textures[0]},
+        t2:{type:"t",value:this.textures[1]}
       },
       side:THREE.DoubleSide
     });
