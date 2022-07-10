@@ -152,19 +152,24 @@ export default class Sketch {
 
     let numberOfParticles = 512*512;
 
+    //THIS ATTRIBUTE GIVES THE LOCATION TO THE PARTICLES
     this.positions = new THREE.BufferAttribute(new Float32Array(numberOfParticles*3),3);
+
+    //THE COORDINATE ATTRIBUTE IS MEANT TO HELP POSITION THE TEXTURE TO THE PARTICLES
+    this.coordinates = new THREE.BufferAttribute(new Float32Array(numberOfParticles*3),3);
     var index = 0;
     for (let i = 0.0; i < 512.0; i++) {
       let posX = i-256;
       for (let j = 0.0; j < 512.0; j++) {
 
         this.positions.setXYZ(index, posX , j-256 , 0.0);
+        this.coordinates.setXYZ(index,i,j,0);
         index++;
         
       }
     }
     this.geometry.setAttribute("position", this.positions);
-
+    this.geometry.setAttribute("aCoordinates",this.coordinates);
     this.mesh = new THREE.Points(this.geometry,this.material);
    this.scene.add(this.mesh); 
   }
