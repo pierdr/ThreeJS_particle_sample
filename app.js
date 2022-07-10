@@ -31,6 +31,7 @@ export default class Sketch {
 
     /* LOAD TEXTURES */
     this.textures = [new THREE.TextureLoader().load(forest1),new THREE.TextureLoader().load(forest2)];
+    this.mask = new THREE.TextureLoader().load(mask);
 
     // this.camera = new THREE.PerspectiveCamera(
     //   45,
@@ -145,8 +146,12 @@ export default class Sketch {
       uniforms:{
         progress:{type:"f",value:0},
         t1:{type: "t",value:this.textures[0]},
-        t2:{type:"t",value:this.textures[1]}
+        t2:{type:"t",value:this.textures[1]},
+        mask:{type:"t",value:this.mask}
       },
+      transparent:true,
+      depthTest:false,
+      depthWrite:false,
       side:THREE.DoubleSide
     });
 
